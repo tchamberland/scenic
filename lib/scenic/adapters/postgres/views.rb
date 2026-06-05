@@ -1,3 +1,5 @@
+require "tsort"
+
 module Scenic
   module Adapters
     class Postgres
@@ -87,8 +89,8 @@ module Scenic
           include TSort
 
           alias_method :tsort_each_node, :each_key
-          def tsort_each_child(node, &)
-            fetch(node).each(&)
+          def tsort_each_child(node, &block)
+            fetch(node).each(&block)
           end
         end
         private_constant :TSortableHash
